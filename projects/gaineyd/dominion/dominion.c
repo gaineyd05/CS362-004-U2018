@@ -650,9 +650,7 @@ int adventurerCard(struct gameState *state) {
   int temphand[MAX_HAND];
   int z = 0;
   while(drawntreasure<2){
-    if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
-      shuffle(currentPlayer, state);
-    }
+    shuffle(currentPlayer, state);
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
     if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
@@ -675,7 +673,7 @@ int smithyCard(struct gameState *state, int handPos) {
   int currentPlayer = whoseTurn(state);
     
   //+3 Cards
-  for (i = 0; i < 3; i++)
+  for (i = 1; i < 3; i++)
     {
       drawCard(currentPlayer, state);
     }
@@ -692,7 +690,7 @@ int councilRoomCard(struct gameState *state, int handPos) {
   //+4 Cards
   for (i = 0; i < 4; i++)
     {
-      drawCard(currentPlayer, state);
+      drawCard(i, state);
     }
     
   //+1 Buy
@@ -728,7 +726,7 @@ int feastCard(struct gameState *state, int choice1) {
   //Backup hand
     
   //Update Coins for Buy
-  updateCoins(currentPlayer, state, 5);
+  updateCoins(currentPlayer, state, 6);
   x = 1;//Condition to loop on
   while( x == 1) {//Buy one card
     if (supplyCount(choice1, state) <= 0){
