@@ -18,6 +18,44 @@ badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
 testBuyCard: testDrawCard.c dominion.o rngs.o
 	gcc -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
+testGainCard: unittest1.c dominion.o rngs.o
+	gcc -o testGainCard -g  unittest1.c dominion.o rngs.o $(CFLAGS)
+
+testGameOver: unittest3.c dominion.o rngs.o
+	gcc -o testGameOver -g  unittest3.c dominion.o rngs.o $(CFLAGS)
+
+testDiscardCard: unittest2.c dominion.o rngs.o
+	gcc -o testDiscardCard -g  unittest2.c dominion.o rngs.o $(CFLAGS)
+
+testFullCount: unittest4.c dominion.o rngs.o
+	gcc -o testFullCount -g  unittest4.c dominion.o rngs.o $(CFLAGS)
+
+testCards: cardtest1.c cardtest2.c cardtest3.c cardtest4.c dominion.o rngs.o
+	gcc -o cardtest1 -g cardtest1.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest2 -g cardtest2.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest3 -g cardtest3.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest4 -g cardtest4.c dominion.o rngs.o $(CFLAGS)
+
+unittestresults: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c dominion.o rngs.o
+	gcc -o testGainCard -g  unittest1.c dominion.o rngs.o $(CFLAGS)
+	gcc -o testDiscardCard -g  unittest2.c dominion.o rngs.o $(CFLAGS)
+	gcc -o testGameOver -g  unittest3.c dominion.o rngs.o $(CFLAGS)
+	gcc -o testFullCount -g  unittest4.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest1 -g cardtest1.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest2 -g cardtest2.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest3 -g cardtest3.c dominion.o rngs.o $(CFLAGS)
+	gcc -o cardtest4 -g cardtest4.c dominion.o rngs.o $(CFLAGS)
+	testGainCard >> unittestresults.out
+	gcov dominion.c -f -b >> unittestresults.out
+	testDiscardCard >> unittestresults.out
+	gcov dominion.c -f -b >> unittestresults.out
+	testGameOver >> unittestresults.out
+	gcov dominion.c -f -b >> unittestresults.out
+	testFullCount >> unittestresults.out
+	gcov dominion.c -f -b >> unittestresults.out
+	cardtest1 >> unittestresults.out
+	gcov dominion.c -f -b >> unittestresults.out
+
 testAll: dominion.o testSuite.c
 	gcc -o testSuite testSuite.c -g  dominion.o rngs.o $(CFLAGS)
 
@@ -36,4 +74,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe testGainCard testDiscardCard testGameOver cardtest1 testFullCount cardtest2 cardtest3 cardtest4
